@@ -41,6 +41,30 @@
                             </div>
                         </div>
 
+                        <div class="mb-3 row">
+                            <label for="captcha_img" class="col-sm-4 col-form-label"></label>
+                            <div class="col-md-6">
+                                <div class="captcha_img">
+                                    <span>{!! captcha_img() !!}</span>
+                                    <button type="button" class="btn btn-danger" class="reload" id="reload">
+                                        <span><x-icon icon='arrow-clockwise' /></span>
+                                    </button>
+                                </div>
+                            </div>    
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="captcha" class="col-sm-4 col-form-label text-end">Captcha</label>
+
+                            <div class="col-md-6">
+                                <input id="captcha" type="text" class="form-control @error('captcha') is-invalid @enderror" name="captcha" required autocomplete="captcha">
+                                @error('captcha')
+                                <div class="invalid-feedback">
+                                  <strong>{{ $message }}</strong>
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="row mb-3">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">
@@ -73,3 +97,16 @@
     </div>
 </div>
 @endsection
+
+@section('script-footer')
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        var reloadButton = document.getElementById('reload');
+        reloadButton.addEventListener('click', function() {
+            location.reload();
+            return false;
+        });
+    });
+</script>
+@endsection
+

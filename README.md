@@ -9,7 +9,15 @@ Each role in the system has a customizable set of permissions. A role can be ass
 - [Laravel 10.x](https://laravel.com/docs/10.x)
 - [Bootstrap 5](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
 
-#### Dependencies
+## Prerequisites
+
+The requirements to run this system can be found at the link: [documentação oficial do laravel](https://laravel.com/docs/10.x):
+
+- Laravel 10.x requires a minimum PHP version of 8.1
+- Enable extension=gd extension in php.ini (for captcha)
+- Enable extension=zip extension in php.ini (for captcha)
+
+## Dependencies
 
 - [Captcha for Laravel](https://github.com/mewebstudio/captcha), Note: Enable extension=gd extension in php.ini
 - [Laravel DomPdf](https://github.com/barryvdh/laravel-dompdf)
@@ -19,12 +27,6 @@ Each role in the system has a customizable set of permissions. A role can be ass
 - [Inputmask](https://github.com/RobinHerbots/Inputmask) 
 - [Bootstrap Multiselect](https://github.com/davidstutz/bootstrap-multiselect)
 - I use the themes of the site: [Bootswatch](https://bootswatch.com/)
-
-## Prerequisites
-
-The requirements to run this system can be found at the link: [documentação oficial do laravel](https://laravel.com/docs/10.x):
-
-- Laravel 10.x requires a minimum PHP version of 8.1
 
 ## Installation
 
@@ -111,6 +113,15 @@ Login: leitor@mail.com
 
 Note: The password for all users is 123456. By default, the migration generates users with names in Brazilian Portuguese.
 
+## Contact
+
+- E-mail: erivelton.silva@proton.me
+- Discord: gixeph#0658
+
 ## Licenças
 
-Código aberto licenciado sob a [licença MIT](https://opensource.org/licenses/MIT).
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details, except for the libraries used.
+
+## Acknowledgments
+
+- [Laravel](https://laravel.com/)

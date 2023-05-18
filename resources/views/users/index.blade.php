@@ -53,6 +53,7 @@
             <tr>
                 <th>{{ __('Name') }}</th>
                 <th>{{ __('Email Address') }}</th>
+                <th>{{ __('Profiles') }}</th>
                 <th>{{ __('Status') }}</th>
                 <th></th>
             </tr>
@@ -63,7 +64,12 @@
                 <td class="text-nowrap">{{ $user->name }}</td>
                 <td class="text-nowrap">{{ $user->email }}</td>
                 <td>
-                @if($user->active == 'N')
+                  @foreach($user->roles as $role)
+                    <span class="badge bg-primary text-dark">{{ $role->name }}</span>
+                  @endforeach
+                </td>
+                <td>
+                @if($user->active == 'n')
                 <span class="badge bg-warning text-dark"><x-icon icon='lock'  /> {{ __('Inactive') }}</span>
                 @endif
                 </td>

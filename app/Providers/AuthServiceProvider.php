@@ -55,7 +55,6 @@ class AuthServiceProvider extends ServiceProvider
                 ->line(__('If you did not request a password reset, no further action is required.'));
         });
 
-
     }
 
     // listagem de permissões com os dados dos perfis (roles)

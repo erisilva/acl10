@@ -132,4 +132,5 @@ class User extends Authenticatable implements MustVerifyEmail
             $query->where('email', 'like', '%' . session()->get('user_email') . '%');
         }
     }
+
 }
