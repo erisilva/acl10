@@ -12,6 +12,9 @@ use App\Models\Perpage;
 
 use Barryvdh\DomPDF\Facade\Pdf; // Export PDF
 
+use App\Exports\PermissionsExport;
+use Maatwebsite\Excel\Facades\Excel; // Export Excel
+
 class PermissionController extends Controller
 {
 
@@ -127,5 +130,25 @@ class PermissionController extends Controller
         return Pdf::loadView('permissions.report', [
             'dataset' => Permission::orderBy('id', 'asc')->filter(request(['name', 'description']))->get()
         ])->download(__('Permissions') . '_' .  date("Y-m-d H:i:s") . '.pdf');
-    }   
+    }
+    
+    /**
+     * Export the specified resource to Excel.
+     */
+    public function exportcsv() : \Symfony\Component\HttpFoundation\BinaryFileResponse
+    {
+        $this->authorize('permission-export');
+
+        return Excel::download(new PermissionsExport(request(['name', 'description'])),  __('Permissions') . '_' .  date("Y-m-d H:i:s") . '.csv', \Maatwebsite\Excel\Excel::CSV);
+    }
+
+    /**
+     * Export the specified resource to Excel.
+     */
+    public function exportxls() : \Symfony\Component\HttpFoundation\BinaryFileResponse
+    {
+        $this->authorize('permission-export');
+
+        return Excel::download(new PermissionsExport(request(['name', 'description'])),  __('Permissions') . '_' .  date("Y-m-d H:i:s") . '.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+    }
 }

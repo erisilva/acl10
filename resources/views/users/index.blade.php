@@ -23,10 +23,10 @@
     <x-dropdown-menu title='Reports' icon='printer'>
 
       <li>
-        <a class="dropdown-item" href="#"><x-icon icon='file-earmark-spreadsheet-fill' /> {{ __('Export') . ' XLS' }}</a>
+        <a class="dropdown-item" href="{{route('users.export.xls', ['email' => request()->input('email'), 'name' => request()->input('name')])}}"><x-icon icon='file-earmark-spreadsheet-fill' /> {{ __('Export') . ' XLS' }}</a>
       </li>
       <li>
-        <a class="dropdown-item" href="#"><x-icon icon='file-earmark-spreadsheet-fill'/> {{ __('Export') . ' CSV' }}</a>
+        <a class="dropdown-item" href="{{route('users.export.csv', ['email' => request()->input('email'), 'name' => request()->input('name')])}}"><x-icon icon='file-earmark-spreadsheet-fill'/> {{ __('Export') . ' CSV' }}</a>
       </li>
       <li>
         <a class="dropdown-item" href="{{route('users.export.pdf', ['email' => request()->input('email'), 'name' => request()->input('name')])}}"><x-icon icon='file-pdf-fill' /> {{ __('Export') . ' PDF' }}</a>

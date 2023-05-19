@@ -37,19 +37,30 @@ Route::get('/profile', [ProfileController::class, 'show'])->name('profile')->mid
 Route::post('/profile/update/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update')->middleware('auth', 'verified');
 Route::post('/profile/update/theme', [ProfileController::class, 'updateTheme'])->name('profile.theme.update')->middleware('auth', 'verified');
 
-# permissions
+# Permission::class
+
+Route::get('/permissions/export/csv', [PermissionController::class, 'exportcsv'])->name('permissions.export.csv');
+    Route::get('/permissions/export/xls', [PermissionController::class, 'exportxls'])->name('permissions.export.xls'); // Export XLS
 
 Route::get('/permissions/export/pdf', [PermissionController::class, 'exportpdf'])->name('permissions.export.pdf')->middleware('auth', 'verified'); // Export PDF
 
 Route::resource('/permissions', PermissionController::class)->middleware('auth', 'verified'); // Resource Route, crud
 
-# roles
+# Role::class
+
+Route::get('/roles/export/csv', [RoleController::class, 'exportcsv'])->name('roles.export.csv'); // Export CSV
+
+Route::get('/roles/export/xls', [RoleController::class, 'exportxls'])->name('roles.export.xls'); // Export XLS
 
 Route::get('/roles/export/pdf', [RoleController::class, 'exportpdf'])->name('roles.export.pdf')->middleware('auth', 'verified'); // Export PDF
 
 Route::resource('/roles', RoleController::class)->middleware('auth', 'verified'); // Resource Route, crud
 
-# users
+# User::class
+
+Route::get('/users/export/csv', [UserController::class, 'exportcsv'])->name('users.export.csv'); // Export CSV
+
+Route::get('/users/export/xls', [UserController::class, 'exportxls'])->name('users.export.xls'); // Export XLS
 
 Route::get('/users/export/pdf', [UserController::class, 'exportpdf'])->name('users.export.pdf')->middleware('auth', 'verified'); // Export PDF
 

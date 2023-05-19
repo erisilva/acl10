@@ -26,10 +26,10 @@
     <x-dropdown-menu title='Reports' icon='printer'>
 
       <li>
-        <a class="dropdown-item" href="#"><x-icon icon='file-earmark-spreadsheet-fill' /> {{ __('Export') . ' XLS' }}</a>
+        <a class="dropdown-item" href="{{route('roles.export.xls', ['description' => request()->input('description'), 'name' => request()->input('name')])}}"><x-icon icon='file-earmark-spreadsheet-fill' /> {{ __('Export') . ' XLS' }}</a>
       </li>
       <li>
-        <a class="dropdown-item" href="#"><x-icon icon='file-earmark-spreadsheet-fill'/> {{ __('Export') . ' CSV' }}</a>
+        <a class="dropdown-item" href="{{route('roles.export.csv', ['description' => request()->input('description'), 'name' => request()->input('name')])}}"><x-icon icon='file-earmark-spreadsheet-fill'/> {{ __('Export') . ' CSV' }}</a>
       </li>
       <li>
         <a class="dropdown-item" href="{{route('roles.export.pdf', ['description' => request()->input('description'), 'name' => request()->input('name')])}}"><x-icon icon='file-pdf-fill' /> {{ __('Export') . ' PDF' }}</a>
