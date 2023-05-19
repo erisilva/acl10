@@ -29,7 +29,7 @@
         <a class="dropdown-item" href="#"><x-icon icon='file-earmark-spreadsheet-fill'/> {{ __('Export') . ' CSV' }}</a>
       </li>
       <li>
-        <a class="dropdown-item" href="#"><x-icon icon='file-pdf-fill' /> {{ __('Export') . ' PDF' }}</a>
+        <a class="dropdown-item" href="{{route('users.export.pdf', ['email' => request()->input('email'), 'name' => request()->input('name')])}}"><x-icon icon='file-pdf-fill' /> {{ __('Export') . ' PDF' }}</a>
       </li>
     
     </x-dropdown-menu>
@@ -98,12 +98,12 @@
     
     <div class="mb-3">
       <label for="name" class="form-label">{{ __('Name') }}</label>
-      <input type="text" class="form-control" id="name" name="name" value="{{ session()->get('permission_name') }}">
+      <input type="text" class="form-control" id="name" name="name" value="{{ session()->get('user_name') }}">
     </div>
     
     <div class="mb-3">
       <label for="email" class="form-label">{{ __('Email Address') }}</label>
-      <input type="text" class="form-control" id="email" name="email" value="{{ session()->get('permission_description') }}">
+      <input type="text" class="form-control" id="email" name="email" value="{{ session()->get('user_description') }}">
     </div>
     
     <button type="submit" class="btn btn-primary btn-sm"><x-icon icon='search'/> {{ __('Search') }}</button>

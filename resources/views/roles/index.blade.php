@@ -32,7 +32,7 @@
         <a class="dropdown-item" href="#"><x-icon icon='file-earmark-spreadsheet-fill'/> {{ __('Export') . ' CSV' }}</a>
       </li>
       <li>
-        <a class="dropdown-item" href="#"><x-icon icon='file-pdf-fill' /> {{ __('Export') . ' PDF' }}</a>
+        <a class="dropdown-item" href="{{route('roles.export.pdf', ['description' => request()->input('description'), 'name' => request()->input('name')])}}"><x-icon icon='file-pdf-fill' /> {{ __('Export') . ' PDF' }}</a>
       </li>
     
     </x-dropdown-menu>  
@@ -78,12 +78,12 @@
     
     <div class="mb-3">
       <label for="name" class="form-label">{{ __('Name') }}</label>
-      <input type="text" class="form-control" id="name" name="name" value="{{ session()->get('permission_name') }}">
+      <input type="text" class="form-control" id="name" name="name" value="{{ session()->get('role_name') }}">
     </div>
     
     <div class="mb-3">
       <label for="description" class="form-label">{{ __('Description') }}</label>
-      <input type="text" class="form-control" id="description" name="description" value="{{ session()->get('permission_description') }}">
+      <input type="text" class="form-control" id="description" name="description" value="{{ session()->get('role_description') }}">
     </div>
     
     <button type="submit" class="btn btn-primary btn-sm"><x-icon icon='search'/> {{ __('Search') }}</button>

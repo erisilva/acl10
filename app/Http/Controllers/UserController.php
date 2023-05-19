@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 
+use Barryvdh\DomPDF\Facade\Pdf;
+
 class UserController extends Controller
 {
     /**
@@ -90,7 +92,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show(User $user) : View
     {
         $this->authorize('user-show');
 
@@ -102,7 +104,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function edit(User $user) : View
     {   
         $this->authorize('user-edit');
 
@@ -169,7 +171,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy(User $user) : RedirectResponse
     {
         $this->authorize('user-delete');
 
@@ -188,5 +190,17 @@ class UserController extends Controller
             DB::rollback();
             return redirect()->route('users.index')->with('message', __('Error deleting record!') . $e->getMessage());
         }
+    }
+
+    /**
+     * Export the specified resource to PDF.
+     */
+    public function exportpdf() : \Illuminate\Http\Response
+    {
+      $this->authorize('user-export');
+
+      return PDF::loadView('users.report', [
+          'dataset' => User::orderBy('name', 'asc')->filter(request(['name', 'email']))->get()
+      ])->download(__('Users') . '_' .  date("Y-m-d H:i:s") . '.pdf');
     }
 }

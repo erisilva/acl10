@@ -8,6 +8,8 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 
+use Barryvdh\DomPDF\Facade\Pdf;
+
 use App\Models\Role;
 use App\Models\Perpage;
 use App\Models\Permission;
@@ -166,4 +168,15 @@ class RoleController extends Controller
 
     }
 
+    /**
+     * Export the specified resource to PDF.
+     */
+    public function exportpdf() : \Illuminate\Http\Response
+    {
+        $this->authorize('role-export');
+
+        return PDF::loadView('roles.report', [
+            'dataset' => Role::orderBy('id', 'asc')->filter(request(['name', 'description']))->get()
+        ])->download(__('Roles') . '_' .  date("Y-m-d H:i:s") . '.pdf');
+    }
 }

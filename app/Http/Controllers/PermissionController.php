@@ -10,6 +10,8 @@ use Illuminate\View\View;
 use App\Models\Permission;
 use App\Models\Perpage;
 
+use Barryvdh\DomPDF\Facade\Pdf; // Export PDF
+
 class PermissionController extends Controller
 {
 
@@ -114,4 +116,16 @@ class PermissionController extends Controller
         return redirect(route('permissions.index'))->with('message', __('Permission deleted successfully!'));
         
     }
+
+    /**
+     * Export the specified resource to PDF.
+     */
+    public function exportpdf() : \Illuminate\Http\Response
+    {
+        $this->authorize('permission-export');
+
+        return Pdf::loadView('permissions.report', [
+            'dataset' => Permission::orderBy('id', 'asc')->filter(request(['name', 'description']))->get()
+        ])->download(__('Permissions') . '_' .  date("Y-m-d H:i:s") . '.pdf');
+    }   
 }

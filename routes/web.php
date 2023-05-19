@@ -37,8 +37,20 @@ Route::get('/profile', [ProfileController::class, 'show'])->name('profile')->mid
 Route::post('/profile/update/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update')->middleware('auth', 'verified');
 Route::post('/profile/update/theme', [ProfileController::class, 'updateTheme'])->name('profile.theme.update')->middleware('auth', 'verified');
 
-Route::resource('/permissions', PermissionController::class)->middleware('auth', 'verified');
+# permissions
 
-Route::resource('/roles', RoleController::class)->middleware('auth', 'verified');
+Route::get('/permissions/export/pdf', [PermissionController::class, 'exportpdf'])->name('permissions.export.pdf')->middleware('auth', 'verified'); // Export PDF
 
-Route::resource('/users', UserController::class)->middleware('auth', 'verified');
+Route::resource('/permissions', PermissionController::class)->middleware('auth', 'verified'); // Resource Route, crud
+
+# roles
+
+Route::get('/roles/export/pdf', [RoleController::class, 'exportpdf'])->name('roles.export.pdf')->middleware('auth', 'verified'); // Export PDF
+
+Route::resource('/roles', RoleController::class)->middleware('auth', 'verified'); // Resource Route, crud
+
+# users
+
+Route::get('/users/export/pdf', [UserController::class, 'exportpdf'])->name('users.export.pdf')->middleware('auth', 'verified'); // Export PDF
+
+Route::resource('/users', UserController::class)->middleware('auth', 'verified'); // Resource Route, crud
