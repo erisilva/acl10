@@ -23,7 +23,7 @@
   </nav>
 </div>
 
-<x-card title="{{ __('Role') }}">
+<x-card-trash title="{{ __('Role') }}">
   <ul class="list-group list-group-flush">
     <li class="list-group-item">
       {{ __('Name') . ' : ' . $role->name }}
@@ -32,7 +32,7 @@
       {{ __('Description') . ' : ' . $role->description }}
     </li>
   </ul>
-</x-card>  
+</x-card-trash>  
 
 <x-btn-back route="roles.index" />
 

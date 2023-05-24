@@ -13,8 +13,7 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-         // permissões possíveis para o cadastro de operadores do sistema
-        // user = operador
+        // permission list for users table
         DB::table('permissions')->insert([
             'name' => 'user-index',
             'description' => 'Lista de operadores',
@@ -41,8 +40,7 @@ class PermissionSeeder extends Seeder
         ]);
 
 
-        // permissões possíveis para o cadastro de perfis do sistema
-        //role = perfil
+        // permission list for roles table
         DB::table('permissions')->insert([
             'name' => 'role-index',
             'description' => 'Lista de perfis',
@@ -68,8 +66,7 @@ class PermissionSeeder extends Seeder
             'description' => 'Exportação de dados dos perfis',
         ]);
 
-        // permissões possíveis para o cadastro de permissões do sistema
-        //permission = permissão de acesso
+        // permission list for permissions table
         DB::table('permissions')->insert([
             'name' => 'permission-index',
             'description' => 'Lista de permissões',
@@ -92,6 +89,20 @@ class PermissionSeeder extends Seeder
         ]);
         DB::table('permissions')->insert([
             'name' => 'permission-export',
+            'description' => 'Exportação de dados das permissões',
+        ]);
+
+        // permission list for logs table
+        DB::table('permissions')->insert([
+            'name' => 'log-index',
+            'description' => 'Lista de permissões',
+        ]);
+        DB::table('permissions')->insert([
+            'name' => 'log-show',
+            'description' => 'Mostrar dados da permissão',
+        ]);
+        DB::table('permissions')->insert([
+            'name' => 'log-export',
             'description' => 'Exportação de dados das permissões',
         ]);
     }

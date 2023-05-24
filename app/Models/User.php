@@ -19,7 +19,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var array
      */
     protected $fillable = [
         'name',
@@ -32,7 +32,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * The attributes that should be hidden for serialization.
      *
-     * @var array<int, string>
+     ** @var array
      */
     protected $hidden = [
         'password',
@@ -40,33 +40,45 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'theme_id' => 1,
+        'active' => 'n',
+    ];
+
+    /**
      * The attributes that should be cast.
      *
-     * @var array<string, string>
+     * @var array
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
     /**
-    * Verifica se o operador está ativo.
+    * Verify if the user is active or not
     *
-    * @var active
     */
     public function hasAccess() : bool
     {
         return ($this->active == 'y') ? true : false;
     }
 
+    /**
+     * Get the theme that owns the user.
+     *
+     */
     public function theme() : BelongsTo
     {
         return $this->belongsTo(Theme::class);
     }
 
-        /**
-     * Perifs do operador
+    /**
+     * Users roles relationship
      *
-     * @var Role
      */
     public function roles() : BelongsToMany
     {
@@ -74,9 +86,8 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Verifica se um operador tem determinado(s) perfil(is)
+     * Verify if a user has a role or roles
      *
-     * @var Bool
      */
     public function hasRoles($roles) : bool
     {
@@ -87,9 +98,8 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     
     /**
-     * Verifica se um operador tem determinado perfil
+     * Verify if a user has a role
      *
-     * @var Bool
      */
     public function hasRole($role) : bool
     {
@@ -100,9 +110,17 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Filtra os registros de acordo com os filtros passados
+     * Assign roles to a user
      *
-     * @var Query
+     */
+    public function assignRole($role) : void
+    {
+        $this->roles()->sync($role, false);
+    }
+
+    /**
+     * Filter users by name or email
+     *
      */
     public function scopeFilter($query, array $filters) : void
     {

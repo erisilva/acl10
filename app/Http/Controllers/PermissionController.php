@@ -9,6 +9,7 @@ use Illuminate\View\View;
 
 use App\Models\Permission;
 use App\Models\Perpage;
+use App\Models\Log;
 
 use Barryvdh\DomPDF\Facade\Pdf; // Export PDF
 
@@ -52,14 +53,21 @@ class PermissionController extends Controller
     {
         $this->authorize('permission-create');
 
-        // Nota: o $request->validate([...]) retorna só os campos que forem validados na lista
-        // usar o $request->all(); para pegar todos os campos
         $permission = $request->validate([
             'name' => 'required|max:255',
             'description' => 'required|max:255',
           ]);
   
-        Permission::create($permission);
+        $new_permission = Permission::create($permission);
+
+        // LOG
+        Log::create([
+            'model_id' => $new_permission->id,
+            'model' => 'Permission',
+            'action' => 'store',
+            'changes' => json_encode($new_permission),
+            'user_id' => auth()->id(),            
+        ]);
 
         return redirect(route('permissions.index'))->with('message', __('Permission created successfully!'));
     }
@@ -102,6 +110,15 @@ class PermissionController extends Controller
   
         $permission->update($input);
 
+        // LOG
+        Log::create([
+            'model_id' => $permission->id,
+            'model' => 'Permission',
+            'action' => 'update',
+            'changes' => json_encode($permission->getChanges()),
+            'user_id' => auth()->id(),            
+        ]);
+
         return redirect(route('permissions.index'))->with('message', __('Permission updated successfully!'));
     }
 
@@ -112,12 +129,20 @@ class PermissionController extends Controller
     {
         $this->authorize('permission-delete');
 
+        // LOG
+        Log::create([
+            'model_id' => $permission->id,
+            'model' => 'Permission',
+            'action' => 'destroy',
+            'changes' => json_encode($permission),
+            'user_id' => auth()->id(),            
+        ]);
+
         $permission->roles()->detach();
 
         $permission->delete();
 
-        return redirect(route('permissions.index'))->with('message', __('Permission deleted successfully!'));
-        
+        return redirect(route('permissions.index'))->with('message', __('Permission deleted successfully!'));       
     }
 
     /**

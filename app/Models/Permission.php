@@ -6,15 +6,24 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Permission extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     */
     protected $fillable = [
         'name', 'description',
     ];
 
+    /**
+     * Filter users by name or email
+     *
+     */
     public function scopeFilter($query, array $filters) : void
     {
         // start session values if not yet initialized
@@ -45,13 +54,11 @@ class Permission extends Model
     }
 
     /**
-     * Perfis dessa permissão
+     * Roles that belong to the permission.
      *
-     * @var Role
      */
     public function roles() : BelongsToMany
     {
         return $this->belongsToMany(Role::class);
     }
-    
 }

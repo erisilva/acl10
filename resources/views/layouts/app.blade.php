@@ -44,10 +44,29 @@
                                {{ __('Config') }} 
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{ route('users.index') }}"><x-icon icon='people' /> {{ __('Users') }}</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('users.index') }}">
+                                        <x-icon icon='people' /> {{ __('Users') }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('logs.index') }}">
+                                        <x-icon icon='list' /> {{ __('Logs') }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        Another action
+                                    </a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        Something else here
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                     </ul>

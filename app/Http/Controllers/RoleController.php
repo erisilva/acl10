@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Role;
 use App\Models\Perpage;
 use App\Models\Permission;
+use App\Models\Log;
 
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -60,28 +61,37 @@ class RoleController extends Controller
             'description' => 'required',
           ]);        
   
-          DB::beginTransaction();
+        DB::beginTransaction();
   
-          try{
-              $role = $request->all();
-  
-              $newRole = Role::create($role);
-  
-              if(isset($role['permissions']) && count($role['permissions'])){
-                  foreach ($role['permissions'] as $key => $value) {
-                      $newRole->permissions()->attach($value);
-                  }
-              }
-  
-              DB::commit();
-  
-              return redirect(route('roles.index'))->with('message', __('Role created successfully!'));
-  
-        }catch(\Exception $e){
-              DB::rollback();
+            try {
+                $role = $request->all();
 
-              return redirect()->route('roles.index')->with('message', __('Error saving record!') . ' ' . $e->getMessage());
-        }
+                $newRole = Role::create($role);
+
+                if(isset($role['permissions']) && count($role['permissions'])){
+                    foreach ($role['permissions'] as $key => $value) {
+                        $newRole->permissions()->attach($value);
+                    }
+                }
+
+                DB::commit();
+
+                //LOG
+                Log::create([
+                    'model_id' => $newRole->id,
+                    'model' => 'Role',
+                    'action' => 'store',
+                    'changes' => json_encode($newRole),
+                    'user_id' => auth()->id(),            
+                ]);
+    
+                return redirect(route('roles.index'))->with('message', __('Role created successfully!'));
+  
+            }catch(\Exception $e){
+                DB::rollback();
+
+                return redirect()->route('roles.index')->with('message', __('Error saving record!') . ' ' . $e->getMessage());
+            }
     }
 
     /**
@@ -139,6 +149,15 @@ class RoleController extends Controller
             }
                 
             $role->update($input);
+
+            // LOG
+            Log::create([
+                'model_id' => $role->id,
+                'model' => 'Role',
+                'action' => 'update',
+                'changes' => json_encode($role->getChanges()),
+                'user_id' => auth()->id(),            
+            ]);
   
             DB::commit();
   
@@ -159,6 +178,15 @@ class RoleController extends Controller
         $this->authorize('role-delete');
 
         try{
+            // LOG
+            Log::create([
+                'model_id' => $role->id,
+                'model' => 'Role',
+                'action' => 'destroy',
+                'changes' => json_encode($role),
+                'user_id' => auth()->id(),            
+            ]);
+
             $role->permissions()->detach();
 
             $role->delete();

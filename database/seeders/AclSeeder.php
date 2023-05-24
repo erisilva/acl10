@@ -66,6 +66,10 @@ class AclSeeder extends Seeder
                 $permission_delete = Permission::where('name', '=', 'permission-delete')->get()->first();
                 $permission_show = Permission::where('name', '=', 'permission-show')->get()->first();  
                 $permission_export = Permission::where('name', '=', 'permission-export')->get()->first();
+                // para logs
+                $log_index = Permission::where('name', '=', 'log-index')->get()->first();
+                $log_show = Permission::where('name', '=', 'log-show')->get()->first();
+                $log_export = Permission::where('name', '=', 'log-export')->get()->first();
         
         
                 // salva os relacionamentos entre perfil e suas permissões
@@ -90,6 +94,10 @@ class AclSeeder extends Seeder
                 $administrador_perfil->permissions()->attach($permission_delete);
                 $administrador_perfil->permissions()->attach($permission_show);
                 $administrador_perfil->permissions()->attach($permission_export);
+                $administrador_perfil->permissions()->attach($log_index);
+                $administrador_perfil->permissions()->attach($log_show);
+                $administrador_perfil->permissions()->attach($log_export);
+
         
         
                 // o gerente (diretor) pode gerenciar os operadores do sistema
@@ -98,6 +106,10 @@ class AclSeeder extends Seeder
                 $gerente_perfil->permissions()->attach($user_edit);
                 $gerente_perfil->permissions()->attach($user_show);
                 $gerente_perfil->permissions()->attach($user_export);
+                $gerente_perfil->permissions()->attach($log_show);
+                $gerente_perfil->permissions()->attach($log_show);
+                $gerente_perfil->permissions()->attach($log_export);
+
         
         
                 // o operador é o nível de operação do sistema não pode criar

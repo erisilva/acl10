@@ -18,7 +18,7 @@
   </nav>
 </div>
 
-<x-card title="{{ __('User') }}">
+<x-card-trash title="{{ __('User') }}">
   <ul class="list-group list-group-flush">
     <li class="list-group-item">
       {{ __('Name') . ' : ' . $user->name }}
@@ -32,7 +32,7 @@
       </strong>
     </li>
   </ul>
-</x-card>
+</x-card-trash>
 
 <x-btn-back route="users.index" />
 

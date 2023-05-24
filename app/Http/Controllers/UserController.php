@@ -70,7 +70,6 @@ class UserController extends Controller
               $user['active'] = 'y'; //set as active
               $user['password'] = Hash::make($user['password']);
               $user['email_verified_at'] = now();
-              $user['theme_id'] = 1; //default theme
     
               $newUser = User::create($user); 
     

@@ -23,7 +23,7 @@
   </nav>
 </div>
 
-<x-card title="{{ __('Permission') }}">
+<x-card-trash title="{{ __('Permission') }}">
   <ul class="list-group list-group-flush">
     <li class="list-group-item">
       {{ __('Name') . ' : ' . $permission->name }}
@@ -32,7 +32,7 @@
       {{ __('Description') . ' : ' . $permission->description }}
     </li>
   </ul>
-</x-card>
+</x-card-trash>
 
 <x-btn-back route="permissions.index" />
 
