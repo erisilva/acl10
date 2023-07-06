@@ -19,10 +19,13 @@
 
   <x-btn-group label='MenuPrincipal' class="py-1">
 
-    <a class="btn btn-primary" href="{{ route('permissions.create') }}" role="button"><x-icon icon='file-earmark'/> {{ __('New') }}</a>  
+    @can('permission-create')
+    <a class="btn btn-primary" href="{{ route('permissions.create') }}" role="button"><x-icon icon='file-earmark'/> {{ __('New') }}</a>
+    @endcan
      
     <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalFilter"><x-icon icon='funnel'/> {{ __('Filters') }}</button>
 
+    @can('permission-export')
     <x-dropdown-menu title='Reports' icon='printer'>
 
       <li>
@@ -35,7 +38,8 @@
         <a class="dropdown-item" href="{{route('permissions.export.pdf', ['description' => request()->input('description'), 'name' => request()->input('name')])}}"><x-icon icon='file-pdf-fill' /> {{ __('Export') . ' PDF' }}</a>
       </li>
     
-    </x-dropdown-menu>  
+    </x-dropdown-menu>
+    @endcan
 
   </x-btn-group>
   
@@ -60,9 +64,13 @@
                 <td>
                   <x-btn-group label='Opções'>
 
+                    @can('permission-edit')
                     <a href="{{route('permissions.edit', $permission->id)}}" class="btn btn-primary btn-sm" role="button"><x-icon icon='pencil-square'/></a>
+                    @endcan
 
+                    @can('permission-show')
                     <a href="{{route('permissions.show', $permission->id)}}" class="btn btn-info btn-sm" role="button"><x-icon icon='eye'/></a>
+                    @endcan
 
                   </x-btn-group>
                 </td>

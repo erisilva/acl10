@@ -22,6 +22,11 @@ use App\Http\Controllers\LogController;
 |
 */
 
+# about page
+Route::get('/about', function () {
+    return view('about.about');
+})->name('about')->middleware('auth', 'verified');
+
 Route::get('/', function () {
     #if the user is logged return index view, if not logged return login view
     if (Auth::check()) {

@@ -23,7 +23,7 @@
   </nav>
 </div>
 
-<x-card-trash title="{{ __('Permission') }}">
+<x-card title="{{ __('Permission') }}">
   <ul class="list-group list-group-flush">
     <li class="list-group-item">
       {{ __('Name') . ' : ' . $permission->name }}
@@ -32,10 +32,15 @@
       {{ __('Description') . ' : ' . $permission->description }}
     </li>
   </ul>
-</x-card-trash>
+</x-card>
+
+@can('permission-delete')
+<x-btn-trash />
+@endcan
 
 <x-btn-back route="permissions.index" />
 
+@can('permission-delete')
 <x-modal-trash class="modal-sm">
   <form method="post" action="{{route('permissions.destroy', $permission->id)}}">
     @csrf
@@ -45,5 +50,6 @@
     </button>
   </form>
 </x-modal-trash>
+@endcan
 
 @endsection

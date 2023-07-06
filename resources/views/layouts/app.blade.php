@@ -44,16 +44,20 @@
                                {{ __('Config') }} 
                             </a>
                             <ul class="dropdown-menu">
+                                @can('user-index')
                                 <li>
                                     <a class="dropdown-item" href="{{ route('users.index') }}">
                                         <x-icon icon='people' /> {{ __('Users') }}
                                     </a>
                                 </li>
+                                @endcan
+                                @can('log-index')
                                 <li>
                                     <a class="dropdown-item" href="{{ route('logs.index') }}">
                                         <x-icon icon='list' /> {{ __('Logs') }}
                                     </a>
                                 </li>
+                                @endcan
                                 <li>
                                     <a class="dropdown-item" href="#">
                                         Another action
@@ -61,6 +65,11 @@
                                 </li>
                                 <li>
                                     <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('about') }}">
+                                        <x-icon icon='info-square' /> {{ __('About') }}
+                                    </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="#">

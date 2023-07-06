@@ -16,10 +16,13 @@
 
   <x-btn-group label='MenuPrincipal' class="py-1">
 
+    @can('user-create')
     <a class="btn btn-primary" href="{{ route('users.create') }}" role="button"><x-icon icon='file-earmark'/> {{ __('New') }}</a>  
+    @endcan
 
     <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalFilter"><x-icon icon='funnel'/> {{ __('Filters') }}</button>
 
+    @can('user-export')
     <x-dropdown-menu title='Reports' icon='printer'>
 
       <li>
@@ -31,17 +34,21 @@
       <li>
         <a class="dropdown-item" href="{{route('users.export.pdf', ['email' => request()->input('email'), 'name' => request()->input('name')])}}"><x-icon icon='file-pdf-fill' /> {{ __('Export') . ' PDF' }}</a>
       </li>
-    
+    @endcan
+
     </x-dropdown-menu>
     
     <x-dropdown-menu title='Options' icon='gear'>
-
+      @can('role-index')
       <li>
         <a class="dropdown-item" href="{{ route('roles.index') }}"><x-icon icon='table' /> {{ __('Roles') }}</a>
       </li>
+      @endcan
+      @can('permission-index')
       <li>
         <a class="dropdown-item" href="{{ route('permissions.index') }}"><x-icon icon='table'/> {{ __('Permissions')}}</a>
       </li>
+      @endcan
     
     </x-dropdown-menu>
 
@@ -76,9 +83,13 @@
                 <td>
                   <x-btn-group label='Opções'>
 
+                    @can('user-edit')
                     <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-sm" role="button"><x-icon icon='pencil-square'/></a>
+                    @endcan
 
+                    @can('user-show')
                     <a href="{{ route('users.show', $user->id) }}" class="btn btn-info btn-sm" role="button"><x-icon icon='eye'/></a>
+                    @endcan
 
                   </x-btn-group>
                 </td>

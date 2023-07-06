@@ -23,7 +23,7 @@
   </nav>
 </div>
 
-<x-card-trash title="{{ __('Role') }}">
+<x-card title="{{ __('Role') }}">
   <ul class="list-group list-group-flush">
     <li class="list-group-item">
       {{ __('Name') . ' : ' . $role->name }}
@@ -32,10 +32,15 @@
       {{ __('Description') . ' : ' . $role->description }}
     </li>
   </ul>
-</x-card-trash>  
+</x-card>
+
+@can('role-delete')
+<x-btn-trash />
+@endcan
 
 <x-btn-back route="roles.index" />
 
+@can('role-delete')
 <x-modal-trash class="modal-sm">
   <form method="post" action="{{route('roles.destroy', $role->id)}}">
     @csrf
@@ -45,5 +50,6 @@
     </button>
   </form>
 </x-modal-trash>
+@endcan
 
 @endsection
